@@ -2,7 +2,7 @@
 
 To install, paste this into your terminal.
 
-This wont work on windows, you will need to do these steps with the windows equivalents
+This might not work on windows, you will need to do these steps with the windows equivalents
 
 Run this to get the desktop files onto your computer
 ```bash
