@@ -1,4 +1,4 @@
-# MistWarp Desktop
+# Bilup Desktop
 
 To install, paste this into your terminal.
 
@@ -6,11 +6,11 @@ This might not work on windows, you will need to do these steps with the windows
 
 Run this to get the desktop files onto your computer
 ```bash
-git clone --recursive https://github.com/MistWarp/desktop mistwarp-desktop
+git clone --recursive https://github.com/Bilup/desktop bilup-desktop
 ```
 Then run this to update and build the desktop application
 ```bash
-cd mistwarp-desktop
+cd bilup-desktop
 git pull
 npm ci
 npm run fetch

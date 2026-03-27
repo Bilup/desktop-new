@@ -1,12 +1,10 @@
-name: Release
+name: Release (Alpha)
 
 on:
   push:
-    tags:
-    - 'v*'
 
 permissions:
-  # required to modify releases
+  # actually not required,but I'm too lazy to delete it due to it may cause some mysterious bugs lol
   contents: write
 
 jobs:
@@ -43,13 +41,6 @@ jobs:
           dist/*.deb
           dist/*.tar.gz
           dist/*.AppImage
-    - name: Upload artifacts to tag
-      run: |
-        node scripts/upload-to-github-releases.mjs Bilup desktop "dist/*.deb"
-        node scripts/upload-to-github-releases.mjs Bilup desktop "dist/*.tar.gz"
-        node scripts/upload-to-github-releases.mjs Bilup desktop "dist/*.AppImage"
-      env:
-        GH_TOKEN: "${{ github.token }}"
 
   release-mac:
     runs-on: macos-latest
@@ -115,11 +106,6 @@ jobs:
       with:
         name: mac
         path: dist/*.dmg
-    - name: Upload artifacts to tag
-      run: |
-        node scripts/upload-to-github-releases.mjs Bilup desktop "dist/*.dmg"
-      env:
-        GH_TOKEN: "${{ github.token }}"
 
   release-windows:
     # GitHub's Windows runners have a C: drive and a D: drive.
@@ -193,15 +179,15 @@ jobs:
         path: |
           D:\repo\dist\Bilup-Setup*x64.exe
     - name: Sign executables with SignPath
-      uses: signpath/github-action-submit-signing-request@4f13d373e8f0cd8d3c0465ff4877feff27aed2ae
+      uses: signpath/github-action-submit-signing-request@v1
       if: env.SIGNPATH_API_TOKEN != ''
       with:
         api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
-        organization-id: 04444052-261e-46eb-8168-ed0eee93c57c
-        project-slug: desktop_
-        signing-policy-slug: release-signing
+        organization-id: b0d96378-983c-4d27-bc67-155f30c84533
+        project-slug: Bilup_offline_editor
+        signing-policy-slug: Bilup_self-signed_cert
         github-artifact-id: ${{ steps.signpath-unsigned.outputs.artifact-id }}
-        artifact-configuration-slug: sign_installers
+        artifact-configuration-slug: initial
         wait-for-completion: true
         # overwrite the unsigned files
         output-artifact-directory: D:\repo\dist
@@ -213,19 +199,4 @@ jobs:
         # keep this list in sync with the signpath artifact upload above
         path: |
           D:\repo\dist\Bilup-Setup*x64.exe
-    - name: Upload signed artifacts to tag
-      working-directory: D:\repo
-      if: env.SIGNPATH_API_TOKEN != ''
-      run: |
-        node scripts/upload-to-github-releases.mjs Bilup desktop "dist/*.exe"
-      env:
-        GH_TOKEN: "${{ github.token }}"
-
-    - name: Upload unsigned artifacts to tag (no SignPath)
-      working-directory: D:\repo
-      if: env.SIGNPATH_API_TOKEN == ''
-      run: |
-        node scripts/upload-to-github-releases.mjs Bilup desktop "dist/*.exe"
-      env:
-        GH_TOKEN: "${{ github.token }}"
  

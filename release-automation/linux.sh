@@ -49,18 +49,18 @@ prepare_source() {
 
 update_flatpak() {
 	echo "Updating flatpak"
-	cd "$src/../org.mistwarp.MistWarp"
+	cd "$src/../org.bilup.Bilup"
 	git checkout master
 	git pull
 	git branch -D "$version" || true
 	git branch "$version"
 	git checkout "$version"
-	sed -E -i "s/commit: [a-f0-9]{40}/commit: $commit/" org.mistwarp.MistWarp.yaml
+	sed -E -i "s/commit: [a-f0-9]{40}/commit: $commit/" org.bilup.Bilup.yaml
 	python3 update-library.py
 	python3 update-packager.py
-	flatpak-node-generator npm ../turbowarp-desktop/package-lock.json
-	flatpak-builder build org.mistwarp.MistWarp.yaml --force-clean --install --user
-	flatpak run org.mistwarp.MistWarp
+	flatpak-node-generator npm ../bilup-desktop/package-lock.json
+	flatpak-builder build org.bilup.Bilup.yaml --force-clean --install --user
+	flatpak run org.bilup.Bilup
 	await_confirmation
 	git stage .
 	git commit -m "Update to $version" -m "Automated"
@@ -69,7 +69,7 @@ update_flatpak() {
 
 update_aur() {
 	echo "Updating AUR"
-	cd "$src/../mistwarp-desktop-bin"
+	cd "$src/../bilup-desktop-bin"
 	git checkout master
 	git pull
 	sed -E -i "s/pkgver=.*/pkgver=$version/" PKGBUILD
@@ -79,7 +79,7 @@ update_aur() {
 	updpkgsums
 	makepkg --printsrcinfo > .SRCINFO
 	makepkg -si
-	turbowarp-desktop
+	bilup-desktop
 	await_confirmation
 	git stage .
 	git commit -m "Update to $version" -m "Automated"
@@ -92,10 +92,10 @@ update_snap() {
 	rm dist/*.snap || true
 	npm run webpack:prod
 	npx electron-builder --linux snap --publish never --config.extraMetadata.tw_dist="release-snap-$(uname -m)"
-	snap install --dangerous dist/MistWarp-*.snap
-	snap run mistwarp-desktop
+	snap install --dangerous dist/Bilup-*.snap
+	snap run bilup-desktop
 	await_confirmation
-	snapcraft upload --release=stable dist/MistWarp-*.snap
+	snapcraft upload --release=stable dist/Bilup-*.snap
 }
 
 update_debian() {
@@ -111,7 +111,7 @@ update_snap
 update_debian
 
 echo "THINGS YOU STILL NEED TO DO:"
-echo " - Merge flatpak/org.mistwarp.MistWarp PR"
+echo " - Merge flatpak/org.bilup.Bilup PR"
 echo " - Delete old binaries from Debian repository"
 echo " - Upload to Microsoft Store"
 echo " - Announcements"

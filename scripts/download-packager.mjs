@@ -6,8 +6,8 @@ import packagerInfo from './packager.json' with { type: 'json' };
 
 const path = pathUtil.join(import.meta.dirname, '../src-renderer/packager/standalone.html');
 
-const localPackagerDir = process.env.MISTWARP_PACKAGER_DIR
-  ? pathUtil.resolve(process.env.MISTWARP_PACKAGER_DIR)
+const localPackagerDir = process.env.BILUP_PACKAGER_DIR
+  ? pathUtil.resolve(process.env.BILUP_PACKAGER_DIR)
   : pathUtil.join(import.meta.dirname, '../../packager');
 
 const localStandalonePath = pathUtil.join(localPackagerDir, 'dist', 'standalone.html');
