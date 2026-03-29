@@ -30,5 +30,10 @@ jobs:
       with:
         name: windows-dist
         path: dist-renderer-webpack
+    - name: Upload package-lock.json
+      uses: actions/upload-artifact@v4
+      with:
+        name: package-lock-auto
+        path: package-lock.json
     - name: Package
       run: npm run electron:package:dir
