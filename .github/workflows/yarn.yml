@@ -30,7 +30,7 @@ jobs:
     - name: Fetch
       run: yarn run fetch
     - name: Compile
-      run: yarn run webpack:prod
+      run: npm run webpack:prod
     - name: Package
       run: |
         node release-automation/build.mjs --debian --tarball --appimage --x64 --armv7l --arm64 --production
