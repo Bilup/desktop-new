@@ -2,6 +2,10 @@ This document is the authoritative source for TurboWarp's changelogs. Everything
 
 Prefix notes with "Windows:", "macOS:", or "Linux:" as needed. Do not use **formatting** or [links](https://desktop.bilup.org/).
 
+# 1.3.0 (2026-04-13)
+
+- Fix some known issue
+
 # 1.2.0 (2026-04-03)
 
 - New initial verison after cleaning desktop repo
