@@ -1,5 +1,15 @@
 [
   {
+    "version": "1.4.0",
+    "date": "2026-4-26",
+    "notes": [
+      "Bilup extensions now available in local (No need Internet)",
+      "Add warning to uncompatible-for-turbowarp blocks",
+      "Fix some known issue (Including Git, Shortcuts Manager, and more!)",
+      "Able to save your project when editor crashed"
+    ]
+  },
+  {
     "version": "1.3.0",
     "date": "2026-4-13",
     "notes": [

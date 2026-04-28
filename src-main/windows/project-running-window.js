@@ -89,6 +89,13 @@ class ProjectRunningWindow extends AbtractWindow {
       });
     }
 
+    if (parsed.origin === 'https://extensions.bilup.org') {
+      return callback({
+        // pathname always has a leading / already
+        redirectURL: `bl-extensions://.${parsed.pathname}`
+      });
+    }
+
     super.onBeforeRequest(details, callback);
   }
 

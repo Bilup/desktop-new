@@ -123,6 +123,11 @@ const parseOpenedFile = (file, workingDirectory) => {
         return new OpenedFile(TYPE_SAMPLE, decodeURIComponent(sampleMatch[1]));
       }
 
+      const bilupSampleMatch = file.match(/^https?:\/\/extensions\.bilup\.org\/samples\/(.+\.sb3)$/);
+      if (bilupSampleMatch) {
+        return new OpenedFile(TYPE_SAMPLE, decodeURIComponent(bilupSampleMatch[1]));
+      }
+
       return new OpenedFile(TYPE_URL, file);
     }
 
@@ -631,6 +636,16 @@ class EditorWindow extends ProjectRunningWindow {
     );
     if (extensionsDocsMatch) {
       ExtensionDocumentationWindow.open(extensionsDocsMatch[1]);
+      return {
+        action: 'deny'
+      };
+    }
+
+    const bilupExtensionsDocsMatch = details.url.match(
+      /^https:\/\/extensions\.bilup\.org\/([\w_\-.\/]+)$/
+    );
+    if (bilupExtensionsDocsMatch) {
+      ExtensionDocumentationWindow.open(bilupExtensionsDocsMatch[1], 'bl-extensions');
       return {
         action: 'deny'
       };
