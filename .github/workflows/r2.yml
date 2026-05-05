@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-      BUCKET: bilup-download
+      BUCKET: bilup-desktop
     steps:
     - name: Checkout (for scripts)
       uses: actions/checkout@v4
